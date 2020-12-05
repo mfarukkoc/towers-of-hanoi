@@ -23,7 +23,11 @@ const HanoiDisplay = () => {
         <Disc size="8" color="blue"></Disc>
         <Disc size="9" color="darkred"></Disc>
       </Stick>
-      <Stick></Stick>
+      <Stick>
+        <Disc size="3" color="red"></Disc>
+        <Disc size="4" color="green"></Disc>
+        <Disc size="5" color="yellow"></Disc>
+      </Stick>
       <Stick></Stick>
     </Screen>
   );
