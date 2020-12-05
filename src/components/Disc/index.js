@@ -11,7 +11,8 @@ S.Disc = styled.div`
   z-index: 1;
   align-self: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-  transition: 0.5s;
+  transition: '0.5s';
+  transform: ${(props) => (props.translate ? 'initial' : 'none !important')};
   cursor: pointer;
   :hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.32), 0 3px 6px rgba(0, 0, 0, 0.46);
@@ -32,6 +33,7 @@ const Disc = (props) => {
           {...provided.dragHandleProps}
           size={(props.size * 10).toString() + '%'}
           color={props.color}
+          translate={snapshot.isDragging}
         ></S.Disc>
       )}
     </Draggable>
