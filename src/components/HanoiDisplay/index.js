@@ -64,16 +64,17 @@ const HanoiDisplay = () => {
     callStack = [];
     move(4, 'stick0', 'stick2', 'stick1');
     console.log(callStack);
-    callStack.forEach((snap) => {
+    /* callStack.forEach((snap) => {
       setTimeout(() => {
         setSticks(snap);
       }, 1000);
-    });
+    }); */
   };
   const move = (n, source, target, aux) => {
     if (n > 0) {
       let sourceClone = cloneSticks[source];
       let targetClone = cloneSticks[target];
+      let delay = 1;
 
       move(n - 1, source, aux, target);
 
@@ -81,8 +82,14 @@ const HanoiDisplay = () => {
       targetClone.forEach((disc) => {
         disc.index += 1;
       });
-      targetClone.unshift({ ...cloneSticks[source][0], index: 0 });
-      sourceClone.splice(0, 1);
+      callStack.forEach((snap) => {
+        setTimeout(() => {
+        setSticks(snap);
+        targetClone.unshift({ ...cloneSticks[source][0], index: 0 });
+          sourceClone.splice(0, 1);
+        }, 1000 * delay);
+      });
+      delay++;
       sourceClone.forEach((disc) => {
         disc.index--;
       });
