@@ -48,7 +48,7 @@ const Stick = (props) => {
               color={disc.color}
               draggableId={disc.draggableId}
               index={disc.index}
-              key={disc.size}
+              key={disc.draggableId}
             ></Disc>
           ))}
 
