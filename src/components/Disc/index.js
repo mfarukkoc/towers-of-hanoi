@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 
 const S = {};
@@ -11,6 +12,7 @@ S.Disc = styled.div`
   align-self: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: 0.5s;
+  cursor: pointer;
   :hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.32), 0 3px 6px rgba(0, 0, 0, 0.46);
   }
@@ -18,10 +20,21 @@ S.Disc = styled.div`
 
 const Disc = (props) => {
   return (
-    <S.Disc
-      size={(props.size * 10).toString() + '%'}
-      color={props.color}
-    ></S.Disc>
+    <Draggable
+      draggableId={props.draggableId}
+      index={props.index}
+      isDragDisabled={props.index !== 0 ? true : false}
+    >
+      {(provided, snapshot) => (
+        <S.Disc
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          size={(props.size * 10).toString() + '%'}
+          color={props.color}
+        ></S.Disc>
+      )}
+    </Draggable>
   );
 };
 
