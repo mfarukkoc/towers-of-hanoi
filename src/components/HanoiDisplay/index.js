@@ -19,11 +19,12 @@ const Screen = styled.div`
 const HanoiDisplay = () => {
   const [sticks, setSticks] = useState({
     stick0: [
-      { size: '6', color: 'black', draggableId: 'disk6', index: 0 },
-      { size: '7', color: 'red', draggableId: 'disk7', index: 1 },
-      { size: '8', color: 'blue', draggableId: 'disk8', index: 2 },
-      { size: '9', color: 'green', draggableId: 'disk9', index: 3 },
+      { size: 6, color: 'black', draggableId: 'disk6', index: 0 },
+      { size: 7, color: 'red', draggableId: 'disk7', index: 1 },
+      { size: 8, color: 'blue', draggableId: 'disk8', index: 2 },
+      { size: 9, color: 'green', draggableId: 'disk9', index: 3 },
     ],
+
     stick1: [],
     stick2: [],
   });
@@ -34,6 +35,7 @@ const HanoiDisplay = () => {
       if (sourceId !== destinationId) {
         let sourceClone = sticks[sourceId];
         let destinationClone = sticks[destinationId];
+
         if (
           destinationClone.length
             ? sourceClone[0].size < destinationClone[0].size
@@ -56,9 +58,55 @@ const HanoiDisplay = () => {
       }
     }
   };
+  var callStack = [];
+  var cloneSticks = sticks;
+  const handleSolve = () => {
+    callStack = [];
+    move(4, 'stick0', 'stick2', 'stick1');
+    console.log(callStack);
+    callStack.forEach((snap) => {
+      setTimeout(() => {
+        setSticks(snap);
+      }, 1000);
+    });
+  };
+  const move = (n, source, target, aux) => {
+    if (n > 0) {
+      let sourceClone = cloneSticks[source];
+      let targetClone = cloneSticks[target];
+
+      move(n - 1, source, aux, target);
+
+      // move rings here
+      targetClone.forEach((disc) => {
+        disc.index += 1;
+      });
+      targetClone.unshift({ ...cloneSticks[source][0], index: 0 });
+      sourceClone.splice(0, 1);
+      sourceClone.forEach((disc) => {
+        disc.index--;
+      });
+      cloneSticks = {
+        ...cloneSticks,
+        [source]: sourceClone,
+        [target]: targetClone,
+      };
+
+      callStack.push(cloneSticks);
+
+      move(n - 1, aux, target, source);
+    }
+  };
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Screen>
+        <button
+          onClick={() => handleSolve()}
+          style={{ wordBreak: 'break-all' }}
+        >
+          Solve
+        </button>
         {JSON.stringify(sticks, null, 4)}
         <Stick dropId="stick0" discs={sticks['stick0']}></Stick>
         <Stick dropId="stick1" discs={sticks['stick1']}></Stick>
