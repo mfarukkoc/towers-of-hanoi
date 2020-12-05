@@ -28,29 +28,31 @@ const HanoiDisplay = () => {
     stick2: [],
   });
   const handleOnDragEnd = (result) => {
-    const sourceId = result.source.droppableId;
-    const destinationId = result.destination.droppableId;
-    if (sourceId !== destinationId) {
-      let sourceClone = sticks[sourceId];
-      let destinationClone = sticks[destinationId];
-      if (
-        destinationClone.length
-          ? sourceClone[0].size < destinationClone[0].size
-          : true
-      ) {
-        destinationClone.forEach((disc) => {
-          disc.index += 1;
-        });
-        destinationClone.unshift({ ...sticks[sourceId][0], index: 0 });
-        sourceClone.splice(result.source.index, 1);
-        sourceClone.forEach((disc) => {
-          disc.index--;
-        });
-        setSticks({
-          ...sticks,
-          [sourceId]: sourceClone,
-          [destinationId]: destinationClone,
-        });
+    if (result.source !== null && result.destination !== null) {
+      const sourceId = result.source.droppableId;
+      const destinationId = result.destination.droppableId;
+      if (sourceId !== destinationId) {
+        let sourceClone = sticks[sourceId];
+        let destinationClone = sticks[destinationId];
+        if (
+          destinationClone.length
+            ? sourceClone[0].size < destinationClone[0].size
+            : true
+        ) {
+          destinationClone.forEach((disc) => {
+            disc.index += 1;
+          });
+          destinationClone.unshift({ ...sticks[sourceId][0], index: 0 });
+          sourceClone.splice(result.source.index, 1);
+          sourceClone.forEach((disc) => {
+            disc.index--;
+          });
+          setSticks({
+            ...sticks,
+            [sourceId]: sourceClone,
+            [destinationId]: destinationClone,
+          });
+        }
       }
     }
   };

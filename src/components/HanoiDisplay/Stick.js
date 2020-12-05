@@ -52,7 +52,13 @@ const Stick = (props) => {
             ></Disc>
           ))}
 
-          {provided.placeholder}
+          <span
+            style={{
+              display: 'none',
+            }}
+          >
+            {provided.placeholder}
+          </span>
         </S.Wrapper>
       )}
     </Droppable>
