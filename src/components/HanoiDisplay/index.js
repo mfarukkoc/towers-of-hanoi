@@ -15,6 +15,25 @@ const Screen = styled.div`
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 `;
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Button = styled.button`
+  padding: 12px;
+  font-size: 32px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 0px;
+  margin-bottom: 6px;
+  background-color: lightblue;
+  cursor: pointer;
+`;
 const HanoiDisplay = () => {
   const [sticks, setSticks] = useState({
     stick0: [
@@ -103,23 +122,18 @@ const HanoiDisplay = () => {
   };
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Screen>
-        <button
-          onClick={() => handleSolve()}
-          style={{ wordBreak: 'break-all' }}
-        >
-          Solve
-        </button>
-        {
-          // displays list of sticks for debugging
-          JSON.stringify(sticks, null, 4)
-        }
-        <Stick dropId="stick0" discs={sticks['stick0']}></Stick>
-        <Stick dropId="stick1" discs={sticks['stick1']}></Stick>
-        <Stick dropId="stick2" discs={sticks['stick2']}></Stick>
-      </Screen>
-    </DragDropContext>
+    <Wrapper>
+      <Button onClick={() => handleSolve()} style={{ wordBreak: 'break-all' }}>
+        Solve
+      </Button>
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Screen>
+          <Stick dropId="stick0" discs={sticks['stick0']}></Stick>
+          <Stick dropId="stick1" discs={sticks['stick1']}></Stick>
+          <Stick dropId="stick2" discs={sticks['stick2']}></Stick>
+        </Screen>
+      </DragDropContext>
+    </Wrapper>
   );
 };
 
