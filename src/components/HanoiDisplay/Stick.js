@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
 import Disc from '../Disc';
@@ -27,12 +27,6 @@ S.Stick = styled.div`
 `;
 
 const Stick = (props) => {
-  const [discs, setDiscs] = useState([]);
-
-  useEffect(() => {
-    if (props.discs !== undefined) setDiscs(props.discs);
-  }, [props.discs]);
-
   return (
     <Droppable droppableId={props.dropId}>
       {(provided, snapshot) => (
@@ -41,16 +35,17 @@ const Stick = (props) => {
           isDraggingOver={snapshot.isDraggingOver}
         >
           <S.Stick></S.Stick>
-
-          {discs.map((disc) => (
-            <Disc
-              size={disc.size}
-              color={disc.color}
-              draggableId={disc.draggableId}
-              index={disc.index}
-              key={disc.draggableId}
-            ></Disc>
-          ))}
+          {props.discs === undefined
+            ? ''
+            : props.discs.map((disc) => (
+                <Disc
+                  size={disc.size}
+                  color={disc.color}
+                  draggableId={disc.draggableId}
+                  index={disc.index}
+                  key={disc.draggableId}
+                ></Disc>
+              ))}
 
           <span
             style={{
