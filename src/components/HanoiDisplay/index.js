@@ -59,23 +59,24 @@ const HanoiDisplay = () => {
     }
   };
   var callStack = [];
-  var cloneSticks = sticks;
+  var cloneSticks = { ...sticks };
   const handleSolve = () => {
     callStack = [];
     move(4, 'stick0', 'stick2', 'stick1');
-    console.log(callStack);
+    let i = 0;
     callStack.forEach((snap) => {
+      i += 1;
       setTimeout(() => {
+        console.log(snap); // display callStack for each snap debugging only
         setSticks(snap);
-      }, 1000);
+      }, 1000 * i);
     });
   };
   const move = (n, source, target, aux) => {
     if (n > 0) {
-      let sourceClone = cloneSticks[source];
-      let targetClone = cloneSticks[target];
-
       move(n - 1, source, aux, target);
+      let sourceClone = [...cloneSticks[source]];
+      let targetClone = [...cloneSticks[target]];
 
       // move rings here
       targetClone.forEach((disc) => {
@@ -86,14 +87,18 @@ const HanoiDisplay = () => {
       sourceClone.forEach((disc) => {
         disc.index--;
       });
+
+      callStack.push({
+        ...cloneSticks,
+        [source]: sourceClone,
+        [target]: targetClone,
+      });
+
       cloneSticks = {
         ...cloneSticks,
         [source]: sourceClone,
         [target]: targetClone,
       };
-
-      callStack.push(cloneSticks);
-
       move(n - 1, aux, target, source);
     }
   };
@@ -107,7 +112,10 @@ const HanoiDisplay = () => {
         >
           Solve
         </button>
-        {JSON.stringify(sticks, null, 4)}
+        {
+          // displays list of sticks for debugging
+          JSON.stringify(sticks, null, 4)
+        }
         <Stick dropId="stick0" discs={sticks['stick0']}></Stick>
         <Stick dropId="stick1" discs={sticks['stick1']}></Stick>
         <Stick dropId="stick2" discs={sticks['stick2']}></Stick>
