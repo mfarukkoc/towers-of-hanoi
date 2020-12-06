@@ -13,9 +13,13 @@ S.Disc = styled.div`
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transition: '0.5s';
   transform: ${(props) => (props.translate ? 'initial' : 'none !important')};
-  cursor: pointer;
+  cursor: ${(props) => (props.disabled ? 'initial' : 'pointer')};
+
   :hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.32), 0 3px 6px rgba(0, 0, 0, 0.46);
+    box-shadow: ${(props) =>
+      props.disabled
+        ? ''
+        : '0 3px 6px rgba(0, 0, 0, 0.32), 0 3px 6px rgba(0, 0, 0, 0.46)'};
   }
 `;
 
@@ -28,6 +32,7 @@ const Disc = (props) => {
     >
       {(provided, snapshot) => (
         <S.Disc
+          disabled={props.index !== 0 ? true : false}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
