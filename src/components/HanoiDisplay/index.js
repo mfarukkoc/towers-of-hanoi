@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import styled from 'styled-components';
-import Disc from '../Disc';
 import Stick from './Stick';
 
 const Screen = styled.div`
