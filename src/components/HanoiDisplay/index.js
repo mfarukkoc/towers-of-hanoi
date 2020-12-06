@@ -63,9 +63,11 @@ const HanoiDisplay = () => {
   const handleSolve = () => {
     callStack = [];
     move(4, 'stick0', 'stick2', 'stick1');
+
     let i = 0;
     callStack.forEach((snap) => {
       i += 1;
+
       setTimeout(() => {
         console.log(snap); // display callStack for each snap debugging only
         setSticks(snap);
@@ -82,8 +84,14 @@ const HanoiDisplay = () => {
       targetClone.forEach((disc) => {
         disc.index += 1;
       });
-      targetClone.unshift({ ...cloneSticks[source][0], index: 0 });
-      sourceClone.splice(0, 1);
+      callStack.forEach((snap) => {
+        setTimeout(() => {
+        setSticks(snap);
+        targetClone.unshift({ ...cloneSticks[source][0], index: 0 });
+          sourceClone.splice(0, 1);
+        }, 1000 * delay);
+      });
+      delay++;
       sourceClone.forEach((disc) => {
         disc.index--;
       });
