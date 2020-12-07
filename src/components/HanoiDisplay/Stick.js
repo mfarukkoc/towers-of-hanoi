@@ -44,6 +44,7 @@ const Stick = (props) => {
                   draggableId={disc.draggableId}
                   index={disc.index}
                   key={disc.draggableId}
+                  isSolving={props.isSolving}
                 ></Disc>
               ))}
 

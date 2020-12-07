@@ -28,11 +28,11 @@ const Disc = (props) => {
     <Draggable
       draggableId={props.draggableId}
       index={props.index}
-      isDragDisabled={props.index !== 0 ? true : false}
+      isDragDisabled={props.index === 0 && !props.isSolving ? false : true}
     >
       {(provided, snapshot) => (
         <S.Disc
-          disabled={props.index !== 0 ? true : false}
+          disabled={props.index === 0 && !props.isSolving ? false : true}
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
