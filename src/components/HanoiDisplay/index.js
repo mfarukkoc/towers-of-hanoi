@@ -11,6 +11,10 @@ const Screen = styled.div`
   background-color: lightblue;
   width: 70%;
   height: 70%;
+  @media (max-width: 1024px) {
+    width: 90%;
+    padding: 8px 8px 0 8px;
+  }
   padding: 8px 16px 0 16px;
   margin: 0 auto;
   border-radius: 10px;
@@ -38,6 +42,10 @@ const Button = styled.button`
   border: 0px;
   margin: 16px auto;
   background-color: lightblue;
+  @media (max-width: 768px) {
+    padding: 6px;
+    font-size: 24px;
+  }
   cursor: pointer;
 `;
 const NumberOfDisc = styled.div`
@@ -49,6 +57,10 @@ const NumberOfDisc = styled.div`
   border: 0px;
   margin: 16px auto;
   background-color: lightblue;
+  @media (max-width: 768px) {
+    padding: 6px;
+    font-size: 24px;
+  }
 `;
 
 const DiscControl = styled.button`
@@ -66,8 +78,15 @@ const DiscControl = styled.button`
   font-weight: 500;
   border-radius: 50%;
   border: 0px;
+  @media (max-width: 768px) {
+    margin: 0 4px;
+    font-size: 24px;
+    line-height: 24px;
+    height: 24px;
+    width: 24px;
+  }
   cursor: pointer;
-  transition: 0.5s;
+  transition: background-color 0.5s;
   :hover {
     background-color: #f8fad7;
   }
@@ -75,12 +94,20 @@ const DiscControl = styled.button`
 
 const ControlWrapper = styled.div`
   width: 70%;
+  @media (max-width: 1024px) {
+    width: 90%;
+    padding: 0 8px 0 8px;
+  }
   display: flex;
   justify-content: space-around;
   padding: 0 16px 0 16px;
 `;
 
 const MinimumMoves = styled.div`
+  @media (max-width: 768px) {
+    margin-right: 8px;
+    font-size: 24px;
+  }
   font-size: 32px;
   font-weight: 500;
   position: absolute;
