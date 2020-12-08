@@ -27,6 +27,7 @@ const Wrapper = styled.div`
 
 const ButtonWrapper = styled.div`
   width: 100%;
+  display: flex;
 `;
 const Button = styled.button`
   display: block;
@@ -38,6 +39,38 @@ const Button = styled.button`
   margin: 16px auto;
   background-color: lightblue;
   cursor: pointer;
+`;
+const NumberOfDisc = styled.div`
+  display: inline-flex;
+  padding: 12px;
+  font-size: 32px;
+  font-weight: 500;
+  border-radius: 10px;
+  border: 0px;
+  margin: 16px auto;
+  background-color: lightblue;
+`;
+
+const DiscControl = styled.button`
+  display: inline-flex;
+  height: 32px;
+  width: 32px;
+  text-align: center;
+  vertical-align: center;
+  justify-content: center;
+  align-items: center;
+  line-height: 32px;
+  margin: 0 8px;
+  background-color: antiquewhite;
+  font-size: 24px;
+  font-weight: 500;
+  border-radius: 50%;
+  border: 0px;
+  cursor: pointer;
+  transition: 0.5s;
+  :hover {
+    background-color: #f8fad7;
+  }
 `;
 
 const ControlWrapper = styled.div`
@@ -57,24 +90,24 @@ const MinimumMoves = styled.div`
 `;
 const HanoiDisplay = () => {
   const discMap = [
-    { size: 1, color: 'black', draggableId: 'disk1' },
-    { size: 2, color: 'red', draggableId: 'disk2' },
-    { size: 3, color: 'blue', draggableId: 'disk3' },
-    { size: 4, color: 'green', draggableId: 'disk4' },
-    { size: 5, color: 'green', draggableId: 'disk5' },
-    { size: 6, color: 'black', draggableId: 'disk6' },
-    { size: 7, color: 'red', draggableId: 'disk7' },
-    { size: 8, color: 'blue', draggableId: 'disk8' },
-    { size: 9, color: 'green', draggableId: 'disk9' },
-    { size: 10, color: '#304221', draggableId: 'disk10' },
+    { size: 1, color: '#efefef', draggableId: 'disk1' },
+    { size: 2, color: '#CC33FF', draggableId: 'disk2' },
+    { size: 3, color: '#6633FF', draggableId: 'disk3' },
+    { size: 4, color: '#3366FF', draggableId: 'disk4' },
+    { size: 5, color: '#33CCFF', draggableId: 'disk5' },
+    { size: 6, color: '#33FFCC', draggableId: 'disk6' },
+    { size: 7, color: '#33FF66', draggableId: 'disk7' },
+    { size: 8, color: '#FFCC33', draggableId: 'disk8' },
+    { size: 9, color: '#ff6633', draggableId: 'disk9' },
+    { size: 10, color: '#800000', draggableId: 'disk10' },
   ];
   const [moveCount, setMoveCount] = useState(0);
   const [sticks, setSticks] = useState({
     stick0: [
-      { size: 6, color: 'black', draggableId: 'disk6', index: 0 },
-      { size: 7, color: 'red', draggableId: 'disk7', index: 1 },
-      { size: 8, color: 'blue', draggableId: 'disk8', index: 2 },
-      { size: 9, color: 'green', draggableId: 'disk9', index: 3 },
+      { size: 7, color: '#33FF66', draggableId: 'disk7', index: 0 },
+      { size: 8, color: '#FFCC33', draggableId: 'disk8', index: 1 },
+      { size: 9, color: '#ff6633', draggableId: 'disk9', index: 2 },
+      { size: 10, color: '#800000', draggableId: 'disk10', index: 3 },
     ],
     stick1: [],
     stick2: [],
@@ -138,7 +171,7 @@ const HanoiDisplay = () => {
         i += 1;
         let temp = moveCount + i;
         setMoveCount(temp);
-        if (i == callStack.length) {
+        if (i === callStack.length) {
           setIsSolving(false);
         }
       }, 1000 * i);
@@ -209,24 +242,27 @@ const HanoiDisplay = () => {
           </Button>
         </ButtonWrapper>
         <ButtonWrapper>
-          <Button>
-            <button
+          <NumberOfDisc>
+            <DiscControl
               onClick={() => handleNumberOfDiscsChange(numberOfDiscs - 1)}
               disabled={numberOfDiscs === 3 || isSolving}
             >
               -
-            </button>{' '}
+            </DiscControl>{' '}
             {numberOfDiscs}{' '}
-            <button
+            <DiscControl
               onClick={() => handleNumberOfDiscsChange(numberOfDiscs + 1)}
               disabled={numberOfDiscs === 10 || isSolving}
             >
               +
-            </button>
-          </Button>
+            </DiscControl>
+          </NumberOfDisc>
         </ButtonWrapper>
         <ButtonWrapper>
-          <Button onClick={() => handleNumberOfDiscsChange(numberOfDiscs)}>
+          <Button
+            onClick={() => handleNumberOfDiscsChange(numberOfDiscs)}
+            disabled={isSolving}
+          >
             Reset
           </Button>
         </ButtonWrapper>
