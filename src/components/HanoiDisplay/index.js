@@ -141,18 +141,20 @@ const HanoiDisplay = () => {
   });
   const [numberOfDiscs, setNumberOfDiscs] = useState(4);
   const [isSolving, setIsSolving] = useState(false);
-  const handleNumberOfDiscsChange = (num) => {
+  const handleNumberOfDiscsChange = async (num) => {
     if (num < 3 || num > 10) return;
     setNumberOfDiscs(num);
-    setSticks({
+    let temp = {
       stick0: [...discMap.slice(-num)].map((e, x) => {
         e['index'] = x;
         return e;
       }),
       stick1: [],
       stick2: [],
-    });
+    };
+    setSticks(temp);
     setMoveCount(0);
+    return temp;
   };
   const handleOnDragEnd = (result) => {
     if (result.source !== null && result.destination !== null) {
@@ -190,14 +192,14 @@ const HanoiDisplay = () => {
   var cloneSticks = { ...sticks };
   const handleSolve = () => {
     callStack = [];
+    console.log(cloneSticks);
     setIsSolving(true);
+    setMoveCount(0);
     move(numberOfDiscs, 'stick0', 'stick2', 'stick1');
     callStack.forEach((snap, i) => {
       setTimeout(() => {
         setSticks(snap);
-        i += 1;
-        let temp = moveCount + i;
-        setMoveCount(temp);
+        setMoveCount(i + 1);
         if (i === callStack.length) {
           setIsSolving(false);
         }
@@ -264,7 +266,15 @@ const HanoiDisplay = () => {
       </DragDropContext>
       <ControlWrapper>
         <ButtonWrapper>
-          <Button onClick={() => handleSolve()} disabled={isSolving}>
+          <Button
+            onClick={() => {
+              handleNumberOfDiscsChange(numberOfDiscs).then((temp) => {
+                cloneSticks = temp;
+                setTimeout(() => handleSolve(), 1000);
+              });
+            }}
+            disabled={isSolving}
+          >
             {isSolving ? 'Solving..' : 'Solve'}
           </Button>
         </ButtonWrapper>
