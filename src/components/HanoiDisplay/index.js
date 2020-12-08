@@ -200,7 +200,7 @@ const HanoiDisplay = () => {
       setTimeout(() => {
         setSticks(snap);
         setMoveCount(i + 1);
-        if (i === callStack.length) {
+        if (i + 1 === callStack.length) {
           setIsSolving(false);
         }
       }, 1000 * i);
@@ -273,9 +273,13 @@ const HanoiDisplay = () => {
                 setTimeout(() => handleSolve(), 1000);
               });
             }}
-            disabled={isSolving}
+            disabled={isSolving || sticks.stick2.length === numberOfDiscs}
           >
-            {isSolving ? 'Solving..' : 'Solve'}
+            {sticks.stick2.length === numberOfDiscs
+              ? 'Solved'
+              : isSolving
+              ? 'Solving..'
+              : 'Solve'}
           </Button>
         </ButtonWrapper>
         <ButtonWrapper>
