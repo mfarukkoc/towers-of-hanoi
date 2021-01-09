@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import HanoiDisplay from './components/HanoiDisplay';
-
+import Welcome from './components/Welcome';
 const AppDiv = styled.div`
   background-color: lightslategray;
 `;
@@ -8,6 +8,7 @@ const AppDiv = styled.div`
 function App() {
   return (
     <AppDiv>
+      <Welcome></Welcome>
       <HanoiDisplay></HanoiDisplay>
     </AppDiv>
   );
