@@ -1,5 +1,7 @@
 # [Towers of Hanoi](https://towersofreact.netlify.app/)
-Classical problem of the computer science world meets the React framework. Implemented using [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) to manage drag and drop interactions.## To Run The Project
+Classical problem of the computer science world meets the React framework. Implemented using [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) to manage drag and drop interactions.
+
+## To Run The Project
 
 ### `npm install`
 
