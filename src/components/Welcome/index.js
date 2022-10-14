@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
+import { useVisited } from '../../hooks/useVisited';
 
 const Wrapper = styled.div`
   display: flex;
@@ -19,6 +20,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  overflow: hidden;
 `;
 
 const disappearAnimation = keyframes`
@@ -100,16 +102,19 @@ const CloseButton = styled.button`
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.2s;
+  z-index: 2;
   :hover {
     background-color: #8899aa;
   }
 `;
 
 const Welcome = () => {
-  const [disappear, setDisappear] = useState(false);
+  const hasVisited = useVisited();
+  const [disappear, setDisappear] = useState(hasVisited);
   const handleClose = () => {
     setDisappear(true);
   };
+  if (hasVisited) return <></>;
   return (
     <Center disappear={disappear}>
       <Wrapper>
